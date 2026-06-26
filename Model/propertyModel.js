@@ -5,10 +5,14 @@ const propertySchema = new mongoose.Schema({
     name: {
         type: String, 
         required: true, 
-        minlength: 10
+        minlength: 5
     },
     description:{
         type: String
+    },
+    price: {
+        type: String, 
+        required: true
     },
     location:{
         type: String, 
