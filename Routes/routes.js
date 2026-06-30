@@ -1,5 +1,5 @@
 import express from "express"; 
-import {Login, Delete} from "../Controller/userController.js";
+import {Login, Register, Delete} from "../Controller/userController.js";
 import { getProperty, addProperty } from "../Controller/propertyController.js";
 import { createBooking, getUserBookings, getOwnerBookings, updateBookingStatus } from "../Controller/bookingController.js";
 import authorize from "../MiddleWare/authMiddleware.js"
@@ -7,7 +7,8 @@ import upload from "../MiddleWare/uploadMiddleWare.js";
 
 const router = express.Router()
 
-router.post("/user/auth", Login)
+router.post("/user/register", Register)
+router.post("/user/login", Login)
 router.delete("/user/", authorize, Delete)
 router.get("/getProperty", getProperty)
 router.post("/addProperty", authorize, upload.single("propertyImage"), addProperty);
