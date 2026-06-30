@@ -13,7 +13,7 @@ router.delete("/user/", authorize, Delete)
 router.get("/getProperty", getProperty)
 router.post("/addProperty", authorize, upload.single("propertyImage"), addProperty);
 
-// Booking routes
+
 router.post("/booking", authorize, createBooking);
 router.get("/booking/my-bookings", authorize, getUserBookings);
 router.get("/booking/owner-bookings", authorize, getOwnerBookings);
