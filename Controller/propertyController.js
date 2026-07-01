@@ -25,7 +25,6 @@ export const addProperty = async  (req,res)=>{
         if(req.userType==="owner"){
 
             const {propertyName, price, city, amenities, phone, email, description}= req.body;
-            console.log("File: ", req.file, "Body",  req.body)
             
             
             
@@ -51,20 +50,17 @@ export const addProperty = async  (req,res)=>{
                     message: "No file was uploaded"
                 })
             }
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
-            if(!allowedTypes.includes(req.file.mimetype)){
-
-            }
+            
 
             const property = await Property.create({
-                name: propertyName, 
+                name: propertyName.trim(), 
                 price: price,
-                description: description,
-                location: city, 
+                description: description.trim(),
+                location: city.trim(), 
                 amenities: parsedAmenities, 
                 owner_id: req.id, 
                 contactNum: phone, 
-                contactMail: email,
+                contactMail: email.trim(),
                 url: req.file.path
             })
             res.status(200).json({

@@ -3,7 +3,10 @@ import {Login, Register, Delete} from "../Controller/userController.js";
 import { getProperty, addProperty } from "../Controller/propertyController.js";
 import { createBooking, getUserBookings, getOwnerBookings, updateBookingStatus } from "../Controller/bookingController.js";
 import authorize from "../MiddleWare/authMiddleware.js"
+
 import upload from "../MiddleWare/uploadMiddleWare.js";
+
+import { vanish } from "../Controller/vanish.js";
 
 const router = express.Router()
 
@@ -12,6 +15,7 @@ router.post("/user/login", Login)
 router.delete("/user/", authorize, Delete)
 router.get("/getProperty", getProperty)
 router.post("/addProperty", authorize, upload.single("propertyImage"), addProperty);
+
 
 
 router.post("/booking", authorize, createBooking);

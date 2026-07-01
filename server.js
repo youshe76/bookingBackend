@@ -14,7 +14,8 @@ dotenv.config()
 const app = express()
 
 const options ={
-    origin: "https://hotel-booking-front-end-umber.vercel.app",
+    // origin: "https://hotel-booking-front-end-umber.vercel.app",
+    origin: "*",
     credentials:true
 }
 
