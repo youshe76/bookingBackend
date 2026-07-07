@@ -1,6 +1,6 @@
 import express from "express"; 
 import {Login, Register, Delete} from "../Controller/userController.js";
-import { getProperty, addProperty } from "../Controller/propertyController.js";
+import { getProperty, addProperty, deleteProperty } from "../Controller/propertyController.js";
 import { createBooking, getUserBookings, getOwnerBookings, updateBookingStatus } from "../Controller/bookingController.js";
 import authorize from "../MiddleWare/authMiddleware.js"
 
@@ -15,6 +15,7 @@ router.post("/user/login", Login)
 router.delete("/user/", authorize, Delete)
 router.get("/getProperty", getProperty)
 router.post("/addProperty", authorize, upload.single("propertyImage"), addProperty);
+router.delete("/deleteProperty/:id", authorize, deleteProperty);
 
 
 

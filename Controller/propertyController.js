@@ -1,4 +1,5 @@
 import { Property } from "../Model/propertyModel.js"
+import { Booking } from "../Model/bookingModel.js";
 import fs from "node:fs/promises";
 export const  getProperty = async (req , res )=>{
     try{
@@ -86,3 +87,44 @@ export const addProperty = async  (req,res)=>{
         })
     }
 }
+
+export const deleteProperty = async (req, res) => {
+    try {
+        if (req.userType !== "owner") {
+            return res.status(403).json({
+                message: "Only owners can delete properties"
+            });
+        }
+
+        const { id } = req.params;
+
+        const property = await Property.findById(id);
+        if (!property) {
+            return res.status(404).json({
+                message: "Property not found"
+            });
+        }
+
+        // Check if the property belongs to the logged-in owner
+        if (property.owner_id.toString() !== req.id) {
+            return res.status(403).json({
+                message: "You are not authorized to delete this property"
+            });
+        }
+
+        // Delete all bookings associated with this property
+        await Booking.deleteMany({ property_id: id });
+
+        // Delete the property itself
+        await Property.findByIdAndDelete(id);
+
+        res.status(200).json({
+            message: "Property deleted successfully"
+        });
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+};
